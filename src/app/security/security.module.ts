@@ -8,6 +8,7 @@ import {SignupComponent} from './component/signup/signup.component';
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import {RouterModule} from "@angular/router";
 
 
 
@@ -27,6 +28,7 @@ import {MatInputModule} from "@angular/material/input";
     ReactiveFormsModule,
     MatInputModule,
     FormsModule,
+    RouterModule
 
   ]
 })

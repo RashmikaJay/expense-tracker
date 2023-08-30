@@ -11,6 +11,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -25,7 +31,14 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     BrowserAnimationsModule,
     MatFormFieldModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    RouterModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    ToastrModule.forRoot(),
+    ToastNoAnimationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

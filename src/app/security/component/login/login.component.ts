@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import { GoogleAuthProvider } from 'firebase/auth';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SecurityService} from "../../../services/security.service";
+
 
 
 
@@ -12,28 +12,50 @@ import { GoogleAuthProvider } from 'firebase/auth';
 })
 export class LoginComponent {
 
-  constructor(private afa: AngularFireAuth) {
-  }
-    loginForm: FormGroup = new FormGroup({
-      email: new FormControl('',Validators.required),
-      password: new FormControl('',Validators.required)
-    });
+  loginForm!:FormGroup;
 
-    login():void{
-      console.log(this.loginForm.get('email')?.value)
-      console.log(this.loginForm.get('password')?.value)
-    }
+  login(){}
+
+
+
+  constructor(private fb:FormBuilder,private service:SecurityService) {
+    this.loginForm =fb.group({
+      email: ['',Validators.required],
+      password: ['',Validators.required]
+    })
+  }
+
+  get fc(){
+    return this.loginForm.controls;
+  }
 
   loginWithGoogle(){
-      return this.Authlogin(new GoogleAuthProvider())
+    this.service.loginWithGoogle();
   }
 
-  Authlogin(provider:any):any{
-     return  this.afa.signInWithPopup(provider).then((response)=>{
-        console.log('You have been logged in successfully');
-      }).catch((err)=>{
-        console.log(err);
-      })
-  }
+
+  // constructor(private afa: AngularFireAuth) {
+  // }
+  //   loginForm: FormGroup = new FormGroup({
+  //     email: new FormControl('',Validators.required),
+  //     password: new FormControl('',Validators.required)
+  //   });
+  //
+  //   login():void{
+  //     console.log(this.loginForm.get('email')?.value)
+  //     console.log(this.loginForm.get('password')?.value)
+  //   }
+  //
+  // loginWithGoogle(){
+  //     return this.Authlogin(new GoogleAuthProvider())
+  // }
+  //
+  // Authlogin(provider:any):any{
+  //    return  this.afa.signInWithPopup(provider).then((response)=>{
+  //       console.log('You have been logged in successfully');
+  //     }).catch((err)=>{
+  //       console.log(err);
+  //     })
+  // }
 }
 
